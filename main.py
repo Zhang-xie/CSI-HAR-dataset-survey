@@ -10,6 +10,7 @@ from rawdata_process import (
     WiAR,
     Har,
     falldefi,
+    CSIDA,
 )
 import numpy as np
 from torchdataset import test_all_dataset
@@ -32,7 +33,7 @@ def generate_all_zip():
     WiAR.raw2zip("/media/yk/Samsung_T5/CSI-HAR-Datasets/WiAR-master/", "WiAR_data.zip")
 
     Har.raw2zip("/media/yk/Samsung_T5/CSI-HAR-Datasets/Har", "Har_data.zip")
-
+    CSIDA.raw2zip("/media/yk/Samsung_T5/CSIDA", "csida_data.zip")
     # Widar3.raw2zip(
     #     "/media/yk/Samsung_T5/CSI-HAR-Datasets/widar3.0/", "Widar3_data.zip"
     # )  # 没写好
@@ -41,8 +42,5 @@ def generate_all_zip():
 
 if __name__ == "__main__":
     # generate_all_zip()  # 重新运行会把已有的文件覆盖了，所以注释了
-    Wih2h.raw2zip("/media/yk/Samsung_T5/CSI-HAR-Datasets/Wih2h", "Wih2h_data.zip")
-    # test_all_dataset()
-    # Widar3.raw2zip(
-    #     "/media/yk/Samsung_T5/CSI-HAR-Datasets/widar3.0/", "Widar3_data.zip"
-    # )  # 没写好
+
+    test_all_dataset()

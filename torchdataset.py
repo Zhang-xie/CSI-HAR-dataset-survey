@@ -126,26 +126,45 @@ class Har_Dataset(Base_Continuous_Dataset):
         return _r
 
 
+class csida_Dataset(Base_Discrete_Dataset):
+    def __init__(self, zip_path):
+        super().__init__(zip_path)
+        self.user_label = np.load(self.zip_f.open("user_label"))
+        self.env_label = np.load(self.zip_f.open("env_label"))
+        self.loc_label = np.load(self.zip_f.open("loc_label"))
+
+    def __getitem__(self, idx):
+        _r = super().__getitem__(idx)
+        _r["user_label"] = self.user_label[idx]
+        _r["env_label"] = self.env_label[idx]
+        _r["loc_label"] = self.loc_label[idx]
+        return _r
+
+
 def test_all_dataset():
     testinfo = [
-        (Wih2h_Dataset, "/media/yk/Samsung_T5/CSI-HAR-Datasets-Code/Wih2h_data.zip"),
-        (WiAR_Dataset, "/media/yk/Samsung_T5/CSI-HAR-Datasets-Code/WiAR_data.zip"),
+        # (Wih2h_Dataset, "/media/yk/Samsung_T5/CSI-HAR-Datasets-Code/Wih2h_data.zip"),
+        # (WiAR_Dataset, "/media/yk/Samsung_T5/CSI-HAR-Datasets-Code/WiAR_data.zip"),
+        # (
+        #     toifall_Dataset,
+        #     "/media/yk/Samsung_T5/CSI-HAR-Datasets-Code/toifall_data.zip",
+        # ),
+        # (Signfi_Dataset, "/media/yk/Samsung_T5/CSI-HAR-Datasets-Code/SignFi_data.zip"),
+        # (
+        #     DeepSeg_Dataset,
+        #     "/media/yk/Samsung_T5/CSI-HAR-Datasets-Code/DeepSeg_data.zip",
+        # ),
+        # (CSLOS_Dataset, "/media/yk/Samsung_T5/CSI-HAR-Datasets-Code/CSLOS_data.zip"),
+        # (
+        #     BehaviourCSI_Dataset,
+        #     "/media/yk/Samsung_T5/CSI-HAR-Datasets-Code/BehaviorCSI_data.zip",
+        # ),
+        # (ARIL_Dataset, "/media/yk/Samsung_T5/CSI-HAR-Datasets-Code/ARIL_data.zip"),
+        # (Har_Dataset, "/media/yk/Samsung_T5/CSI-HAR-Datasets-Code/Har_data.zip"),
         (
-            toifall_Dataset,
-            "/media/yk/Samsung_T5/CSI-HAR-Datasets-Code/toifall_data.zip",
+            csida_Dataset,
+            "/media/yk/Samsung_T5/CSI-HAR-Datasets/CSI-HAR-Datasets-Code/csida_data.zip",
         ),
-        (Signfi_Dataset, "/media/yk/Samsung_T5/CSI-HAR-Datasets-Code/SignFi_data.zip"),
-        (
-            DeepSeg_Dataset,
-            "/media/yk/Samsung_T5/CSI-HAR-Datasets-Code/DeepSeg_data.zip",
-        ),
-        (CSLOS_Dataset, "/media/yk/Samsung_T5/CSI-HAR-Datasets-Code/CSLOS_data.zip"),
-        (
-            BehaviourCSI_Dataset,
-            "/media/yk/Samsung_T5/CSI-HAR-Datasets-Code/BehaviorCSI_data.zip",
-        ),
-        (ARIL_Dataset, "/media/yk/Samsung_T5/CSI-HAR-Datasets-Code/ARIL_data.zip"),
-        (Har_Dataset, "/media/yk/Samsung_T5/CSI-HAR-Datasets-Code/Har_data.zip"),
     ]
 
     for t in testinfo:
